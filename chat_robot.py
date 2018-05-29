@@ -2,6 +2,7 @@
 
 import requests
 import json
+import itchat
 
 def get_reply(message):
   reply = "我不知道该说什么好了。"
@@ -25,3 +26,11 @@ def get_reply(message):
     if result['resultType'] == 'text':
       reply = result['values']['text']
   return reply
+
+@itchat.msg_register(itchat.content.TEXT)
+def print_content(msg):
+  print(msg['Text'])
+  return get_reply(msg['Text'])
+
+itchat.auto_login()
+itchat.run()
